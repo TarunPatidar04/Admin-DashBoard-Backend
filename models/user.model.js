@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 const userSchema = new mongoose.Schema(
   {
@@ -27,4 +30,29 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+userSchema.methods.generateToken = async function () {
+  try {
+    return jwt.sign(
+      {
+        userId: this._id.toString(),
+        email: this.email,
+        isAdmin: this.isAdmin,
+      },
+      process.env.JWT_SECRET_KEY,
+      {
+        expiresIn: "7d",
+      }
+    );
+  } catch (error) {
+    console.log("JSON web  Token Error in model", error);
+  }
+};
+
 export const User = mongoose.model("User", userSchema);
+// const user = this;
+//   const token = jwt.sign(
+//     { _id: user._id.toString(), isAdmin: user.isAdmin },
+//     process.env.JWT_SECRET,
+//     { expiresIn: "7d" }
+//   );
+//   return token;

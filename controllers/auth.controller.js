@@ -33,8 +33,12 @@ export const postRegister = async (req, res) => {
     });
     res
       .status(201)
-      .send({ message: "User registered successfully", user: newUser });
-
+      .send({
+        message: "User registered successfully",
+        user: newUser,
+        token: await newUser.generateToken(),
+        userId: newUser._id.toString(),
+      });
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error" });
   }
