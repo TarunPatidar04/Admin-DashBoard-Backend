@@ -31,14 +31,34 @@ export const postRegister = async (req, res) => {
       phone,
       password: hashedPassword,
     });
-    res
-      .status(201)
-      .send({
-        message: "User registered successfully",
-        user: newUser,
-        token: await newUser.generateToken(),
-        userId: newUser._id.toString(),
-      });
+    res.status(201).send({
+      message: "User registered successfully",
+      user: newUser,
+      token: await newUser.generateToken(),
+      userId: newUser._id.toString(),
+    });
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+};
+
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).send({ message: "Invalid email or password" });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(400).send({ message: "Invalid email or password" });
+    }
+    res.status(200).send({
+      message: "Login successful",
+      user: user,
+      token: await user.generateToken(),
+      userId: user._id.toString(),
+    });
   } catch (error) {
     res.status(500).send({ message: "Internal Server Error" });
   }
