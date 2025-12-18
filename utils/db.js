@@ -3,8 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const MONGO_URL =
-  process.env.MONGO_URL || "mongodb://localhost:27017/Admin_dashboard_backend";
+const MONGO_URL = process.env.MONGO_URL;
 
 export const connectDB = async () => {
   try {
