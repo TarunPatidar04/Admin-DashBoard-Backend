@@ -20,6 +20,7 @@ export const getRegister = async (req, res) => {
 export const postRegister = async (req, res) => {
   try {
     const { username, email, phone, password } = req.body;
+    
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).send({ message: "User already exists" });
