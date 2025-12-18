@@ -10,21 +10,21 @@ export const validate = (schema) => async (req, res, next) => {
 
     // ✅ Zod v4 error handling
     if (error instanceof ZodError) {
-      const formattedErrors = error.issues.map(issue => ({
+      const formattedErrors = error.issues.map((issue) => ({
         field: issue.path[0],
         message: issue.message
       }));
 
       return res.status(400).json({
         message: "Validation failed",
-        errors: formattedErrors
+        errors: formattedErrors,
       });
     }
 
     // ❌ unexpected error
     console.error("Unexpected error:", error);
     return res.status(500).json({
-      message: "Internal server error"
+      message: "Internal server error",
     });
   }
 };

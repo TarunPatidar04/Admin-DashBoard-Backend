@@ -20,7 +20,7 @@ export const getRegister = async (req, res) => {
 export const postRegister = async (req, res) => {
   try {
     const { username, email, phone, password } = req.body;
-    
+
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).send({ message: "User already exists" });
@@ -39,7 +39,8 @@ export const postRegister = async (req, res) => {
       userId: newUser._id.toString(),
     });
   } catch (error) {
-    res.status(500).send({ message: "Internal Server Error" });
+    // res.status(500).send({ message: "Internal Server Error" });
+    next(error);
   }
 };
 
@@ -61,6 +62,7 @@ export const login = async (req, res) => {
       userId: user._id.toString(),
     });
   } catch (error) {
-    res.status(500).send({ message: "Internal Server Error" });
+    // res.status(500).send({ message: "Internal Server Error" });
+    next(error);
   }
 };

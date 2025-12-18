@@ -3,11 +3,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 import authRouter from './routes/auth.route.js';
 import { connectDB } from './utils/db.js';
+import { errorMiddleware } from './middlewares/error.middleware.js';
 
 // connectDB();
 
 
 // middleware
+app.use(errorMiddleware)
 app.use(express.json());
 app.use('/api/auth', authRouter);
 
