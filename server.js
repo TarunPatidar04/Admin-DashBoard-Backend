@@ -5,8 +5,17 @@ import authRouter from './routes/auth.route.js';
 import contactRouter from './routes/contact.route.js';
 import { connectDB } from './utils/db.js';
 import { errorMiddleware } from './middlewares/error.middleware.js';
+import cors from 'cors';
 
 // connectDB();
+app.use(cors(
+  {
+    origin: 'http://localhost:5173/',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    // allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+  }
+));
 
 
 // middleware
