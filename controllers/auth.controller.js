@@ -34,6 +34,7 @@ export const postRegister = async (req, res) => {
     });
     res.status(201).send({
       message: "User registered successfully",
+      status: true,
       user: newUser,
       token: await newUser.generateToken(),
       userId: newUser._id.toString(),
@@ -57,6 +58,7 @@ export const login = async (req, res) => {
     }
     res.status(200).send({
       message: "Login successful",
+      status: true,
       user: user,
       token: await user.generateToken(),
       userId: user._id.toString(),
