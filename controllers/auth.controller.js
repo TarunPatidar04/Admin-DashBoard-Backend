@@ -68,3 +68,14 @@ export const login = async (req, res) => {
     next(error);
   }
 };
+
+//logged in user data
+export const user = async (req, res) => {
+  try {
+    const userData = req.user;
+    // console.log(userData);
+    res.status(200).send({ message: userData });
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+};
