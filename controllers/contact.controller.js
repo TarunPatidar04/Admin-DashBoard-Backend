@@ -16,7 +16,7 @@ export const contactForm = async (req, res, next) => {
   } catch (error) {
     console.error("Error submitting contact form:", error);
     res.status(500).send({
-      message: "Internal Server Error",
+      message: error,
     });
     // next(error);
   }

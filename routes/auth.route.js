@@ -3,6 +3,10 @@ import { getRegister, home, login, postRegister, user,  } from '../controllers/a
 import { validate } from '../middlewares/validate.middleware.js';
 import { loginSchema, registerSchema } from '../validators/auth.validate.js';
 import { authMiddleware } from '../middlewares/auth.middleware.js';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+
 const router = express.Router();
 
 router.route('/').get(home);
